@@ -4,8 +4,8 @@ import { useLocation } from "react-router-dom";
 export default function QuizPage() {
   const location = useLocation();
   const quizData = location.state?.data || [];
-  //   const [questions, setQuestions] = useState([{ question: "", answers: [] }]);
-  const [questions, setQuestions] = useState([...quizData]);
+  const [questions, setQuestions] = useState([{ question: "", answers: [] }]);
+  // const [questions, setQuestions] = useState([...quizData]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [checkedAnswers, setCheckedAnswers] = useState([]);
   const [showCorrect, setShowCorrect] = useState(false);
@@ -55,16 +55,16 @@ export default function QuizPage() {
       setCurrentQuestion(currentQuestion + 1);
   }
 
-  //   useEffect(() => {
-  //     if (quizData?.length > 0) {
-  //         const shuffledQuestions = shuffle(quizData).map((q) => ({
-  //           ...q,
-  //           answers: shuffle(q.answers),
-  //         }));
+  useEffect(() => {
+    if (quizData?.length > 0) {
+      const shuffledQuestions = shuffle(quizData).map((q) => ({
+        ...q,
+        answers: shuffle(q.answers),
+      }));
 
-  //       setQuestions(shuffledQuestions);
-  //     }
-  //   }, [quizData]);
+      setQuestions(shuffledQuestions);
+    }
+  }, [quizData]);
 
   useEffect(() => {
     if (questions.length > 0) {
@@ -79,10 +79,10 @@ export default function QuizPage() {
 
   return (
     <div className="text-[#343a40] bg-[#f8f9fa] rounded-xl border-2 px-12 py-8 shadow-lg w-full min-w-4xl flex flex-col items-start">
-      <h2 className="text-4xl mb-4">
+      <h2 className="mb-4 text-4xl">
         {currentQuestion + 1}. {questions[currentQuestion].question}
       </h2>
-      <div className="flex flex-col w-full gap-1  mb-8">
+      <div className="flex flex-col w-full gap-1 mb-8">
         {questions[currentQuestion].answers.map((item, index) => (
           <div
             key={index}
@@ -103,7 +103,7 @@ export default function QuizPage() {
           </div>
         ))}
       </div>
-      <div className="flex items-center w-full justify-between">
+      <div className="flex items-center justify-between w-full">
         <NextPrev onClick={handlePrev}>Poprzednie pytanie</NextPrev>
         <NextPrev bgColor="bg-[#40c057]" onClick={handleCorrectAnswer}>
           Sprawdź odpowiedź
