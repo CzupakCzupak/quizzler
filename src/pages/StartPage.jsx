@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import nowakData from "../assets/nowak.json";
 
 export default function StartPage() {
   const [contents, setContents] = useState();
@@ -12,11 +13,16 @@ export default function StartPage() {
     setContents(text);
   };
 
+  const handleTest = async () => {
+    setContents(nowakData);
+    navigate("/quiz", { state: { data: nowakData } });
+  };
+
   return (
     <div className="text-[#343a40]">
-      <h1 className=" mb-8">Quizzler - utrwalanie bazy na studiach</h1>
-      <div className="flex items-center gap-x-8 justify-center  mb-8">
-        <p className=" text-xl">Wczytaj plik</p>
+      <h1 className="mb-8 ">Quizzler - utrwalanie bazy na studiach</h1>
+      <div className="flex items-center justify-center mb-8 gap-x-8">
+        <p className="text-xl ">Wczytaj plik</p>
         <input
           type="file"
           accept=".json"
@@ -24,14 +30,19 @@ export default function StartPage() {
           onChange={handleFileChange}
         />
       </div>
-      <button
-        onClick={() => {
-          navigate("/quiz", { state: { data: JSON.parse(contents) } });
-        }}
-        className="text-white mb-4 bg-[#212529]"
-      >
-        Rozpocznij quiz
-      </button>
+      <div className="flex items-center justify-center gap-8 text-white">
+        <button
+          onClick={() => {
+            navigate("/quiz", { state: { data: JSON.parse(contents) } });
+          }}
+          className=" bg-[#212529]"
+        >
+          Rozpocznij quiz
+        </button>
+        <button className="bg-[#4c6ef5]" onClick={handleTest}>
+          Test
+        </button>
+      </div>
     </div>
   );
 }
