@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import nowakData from "../assets/nowak.json";
+import nowakData from "../../public/nowak.json";
 
 export default function StartPage() {
   const [contents, setContents] = useState();
@@ -19,7 +19,7 @@ export default function StartPage() {
   };
 
   return (
-    <div className="text-[#343a40]">
+    <div className="text-[#343a40] mx-auto">
       <h1 className="mb-8 ">Quizzler - utrwalanie bazy na studiach</h1>
       <div className="flex items-center justify-center mb-8 gap-x-8">
         <p className="text-xl ">Wczytaj plik</p>

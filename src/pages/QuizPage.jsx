@@ -10,6 +10,7 @@ export default function QuizPage() {
   const [checkedAnswers, setCheckedAnswers] = useState([]);
   const [showCorrect, setShowCorrect] = useState(false);
   const [questionStates, setQuestionStates] = useState([]);
+  const photoDir = "../../public/assets/images/";
 
   function shuffle(array) {
     const arr = [...array];
@@ -51,8 +52,11 @@ export default function QuizPage() {
 
   function handleNext() {
     resetQuestionState();
-    if (currentQuestion < questions.length - 1)
+    if (currentQuestion < questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
+    } else {
+      handleReset();
+    }
   }
 
   function generateShuffledQuestions(data) {
@@ -93,46 +97,87 @@ export default function QuizPage() {
   }, [questions]);
 
   return (
-    <div className="text-[#343a40] bg-[#f8f9fa] rounded-xl border-2 px-12 py-8 shadow-lg w-full min-w-4xl max-w-4xl flex flex-col items-start justify-between h-[55vh] ">
-      <div>
-        <h2 className="mb-4 text-4xl">
-          {currentQuestion + 1}. {questions[currentQuestion].question}
-        </h2>
-        <div className="flex flex-col w-full gap-1 mb-8 shrink-0">
-          {questions[currentQuestion].answers.map((item, index) => (
-            <div
-              key={index}
-              onClick={() => handleCheck(index)}
-              className={`flex items-center p-4 w-full ${
-                questionStates[currentQuestion]?.showCorrect && item.correct
-                  ? "bg-[#8ce99a]"
-                  : "hover:bg-[#e9ecef]"
-              }`}
-            >
-              <input
-                type="checkbox"
-                checked={!!questionStates[currentQuestion]?.answers[index]}
-                readOnly
-                className="mr-3"
-              />
-              <p>{item.text}</p>
+    <div className="box-border flex flex-col items-center justify-end w-screen h-screen pb-32">
+      <div className="text-[#343a40] bg-[#f8f9fa] rounded-xl border-2 px-12 py-8 shadow-lg w-full w-full max-w-4xl flex flex-col items-start justify-between h-[80vh] ">
+        <div className="w-full">
+          <h2 className="mb-4 text-4xl">
+            {questions[currentQuestion].type == "questionPhoto" ? (
+              <>
+                <p>
+                  {currentQuestion + 1}. {questions[currentQuestion].question}
+                </p>
+                <img
+                  src={photoDir + questions[currentQuestion].img}
+                  className="max-w-[400px]"
+                />
+              </>
+            ) : (
+              <p>
+                {currentQuestion + 1}. {questions[currentQuestion].question}
+              </p>
+            )}
+          </h2>
+
+          {questions[currentQuestion].type == "photo" ? (
+            <div className="grid grid-cols-2">
+              {questions[currentQuestion].answers.map((item, index) => (
+                <div
+                  key={index}
+                  onClick={() => handleCheck(index)}
+                  className={`flex items-center p-4  ${
+                    questionStates[currentQuestion]?.showCorrect && item.correct
+                      ? "bg-[#8ce99a]"
+                      : "hover:bg-[#e9ecef]"
+                  }`}
+                >
+                  <input
+                    type="checkbox"
+                    checked={!!questionStates[currentQuestion]?.answers[index]}
+                    readOnly
+                    className="mr-3"
+                  />
+                  <img src={photoDir + item.img} className="max-w-[400px]" />
+                </div>
+              ))}
             </div>
-          ))}
+          ) : (
+            <div className="flex flex-col flex-wrap w-full gap-1 mb-8 shrink-0">
+              {questions[currentQuestion].answers.map((item, index) => (
+                <div
+                  key={index}
+                  onClick={() => handleCheck(index)}
+                  className={`flex items-center p-4 w-full ${
+                    questionStates[currentQuestion]?.showCorrect && item.correct
+                      ? "bg-[#8ce99a]"
+                      : "hover:bg-[#e9ecef]"
+                  }`}
+                >
+                  <input
+                    type="checkbox"
+                    checked={!!questionStates[currentQuestion]?.answers[index]}
+                    readOnly
+                    className="mr-3"
+                  />
+                  <p>{item.text}</p>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
-      </div>
-      <div className="flex items-center justify-between w-full shrink-0">
-        <Button onClick={handlePrev}>Poprzednie pytanie</Button>
-        <Button
-          bgColor="bg-[#ced4da]"
-          textColor="text-black"
-          onClick={handleReset}
-        >
-          Resetuj
-        </Button>
-        <Button bgColor="bg-[#40c057]" onClick={handleCorrectAnswer}>
-          Sprawdź odpowiedź
-        </Button>
-        <Button onClick={handleNext}>Następne pytanie</Button>
+        <div className="flex flex-wrap items-center justify-between w-full gap-4 shrink-0">
+          <Button onClick={handlePrev}>Poprzednie pytanie</Button>
+          <Button
+            bgColor="bg-[#ced4da]"
+            textColor="text-black"
+            onClick={handleReset}
+          >
+            Resetuj
+          </Button>
+          <Button bgColor="bg-[#40c057]" onClick={handleCorrectAnswer}>
+            Sprawdź odpowiedź
+          </Button>
+          <Button onClick={handleNext}>Następne pytanie</Button>
+        </div>
       </div>
     </div>
   );

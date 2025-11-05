@@ -1,8 +1,29 @@
 [
   {
+    "type": "photo",
+    "question": "Wskaż która z poniższych charakterystyk przedstawia odpowiedź skokową obiektu typu całkującego idealnego",
+    "answers": [
+      { "img": "chartUp.png", "correct": false },
+      { "img": "chartDiagonal.png", "correct": true },
+      { "img": "chartCurve_1.png", "correct": false },
+      { "img": "chartCurve_2.png", "correct": false }
+    ]
+  },
+  {
+    "type": "questionPhoto",
+    "question": "Na poniższym rysunku przedstawiono charakterystyke Nyquista dla obiektu typu:",
+    "img": "nyquist_Chart.png",
+    "answers": [
+      { "text": "całkującego rzeczywistego", "correct": false },
+      { "text": "różniczkowego rzeczywistego", "correct": false },
+      { "text": "inercyjnego I-rzędu", "correct": true },
+      { "text": "inercyjnego II-rzędu", "correct": false }
+    ]
+  },
+  {
     "question": "Obiekty z dziedziny automatyki można modelować za pomocą:",
     "answers": [
-      { "text": "transmitancji operacyjnej", "correct": false},
+      { "text": "transmitancji operacyjnej", "correct": false },
       { "text": "transmitancji operatorowej", "correct": true },
       { "text": "transformacji Laplace’a", "correct": false },
       { "text": "transformacji różniczkowej", "correct": false },
