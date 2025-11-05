@@ -10,7 +10,7 @@ export default function QuizPage() {
   const [checkedAnswers, setCheckedAnswers] = useState([]);
   const [showCorrect, setShowCorrect] = useState(false);
   const [questionStates, setQuestionStates] = useState([]);
-  const photoDir = "../../public/assets/images/";
+  const photoDir = "../assets/images/";
 
   function shuffle(array) {
     const arr = [...array];
