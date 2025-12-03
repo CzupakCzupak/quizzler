@@ -1,0 +1,158 @@
+[
+  {
+    "type": "photo",
+    "question": "Wskaż algorytm regulatora PID (e(t) – uchyb regulacji, u(t) – sygnał regulujący, y(t) – sygnał regulowany).",
+    "answers": [
+      { "img": "pid_formula_a.png", "correct": true },
+      { "img": "pid_formula_b.png", "correct": false },
+      { "img": "pid_formula_c.png", "correct": false },
+      { "img": "pid_formula_d.png", "correct": false }
+    ]
+  },
+  {
+    "question": "Zadaniem układu regulacji automatycznej jest:",
+    "answers": [
+      { "text": "minimalizacja wartości uchybu ustalonego", "correct": true },
+      { "text": "minimalizacja wartości sygnału regulowanego", "correct": false },
+      { "text": "minimalizacja wartości sygnału regulującego", "correct": false },
+      { "text": "minimalizacja wpływu zakłóceń na wartość sygnału regulowanego", "correct": true }
+    ]
+  },
+  {
+    "question": "Uchyb regulacji e(t) jest sygnałem:",
+    "answers": [
+      { "text": "wyjściowym układu regulacji", "correct": false },
+      { "text": "mierzonym i podawanym zwrotnie przez pętlę sprzężenia zwrotnego do węzła sumacyjnego", "correct": false },
+      { "text": "wyjściowym regulatora", "correct": false },
+      { "text": "wejściowym układu regulacji", "correct": false },
+      { "text": "wejściowym regulatora", "correct": true }
+    ]
+  },
+  {
+    "question": "W układzie regulacji automatycznej (URA) sygnałem wejściowym układu jest:",
+    "answers": [
+      { "text": "uchyb regulacji", "correct": false },
+      { "text": "sygnał regulowany", "correct": false },
+      { "text": "sygnał zadany", "correct": true },
+      { "text": "sygnał regulujący", "correct": false }
+    ]
+  },
+  {
+    "question": "Dla układu regulacji automatycznej (URA) składającego się z regulatora typu P i obiektu inercyjnego I-rzędu, uchyb ustalony regulacji dla wartości zadanej w postaci skoku jednostkowego jest:",
+    "answers": [
+      { "text": "niezerowy", "correct": true },
+      { "text": "równy zero", "correct": false },
+      { "text": "nieskończenie duży", "correct": false }
+    ]
+  },
+  {
+    "question": "Przy badaniu stabilności liniowego układu regulacji poprzez analizę równania charakterystycznego – warunkiem koniecznym i dostatecznym na to, żeby układ zamknięty był stabilny jest, aby:",
+    "answers": [
+      { "text": "pierwiastki równania charakterystycznego miały dodatnie części rzeczywiste", "correct": false },
+      { "text": "pierwiastki równania charakterystycznego miały dodatnie i ujemne części rzeczywiste", "correct": false },
+      { "text": "wszystkie pierwiastki równania charakterystycznego miały ujemne części rzeczywiste", "correct": true },
+      { "text": "wszystkie bieguny transmitancji układu zamkniętego leżały w lewej półpłaszczyźnie zmiennej zespolonej s", "correct": true }
+    ]
+  },
+  {
+    "question": "Kryterium Nyquista pozwala na określanie stabilności URA na podstawie:",
+    "answers": [
+      { "text": "badania przebiegu funkcji G_układu-otwartego(jω)", "correct": true },
+      { "text": "badania przebiegu funkcji G_układu-zamkniętego(s)", "correct": false },
+      { "text": "badania przebiegu funkcji G_układu-zamkniętego(jω)", "correct": false },
+      { "text": "badania przebiegu funkcji G_układu-otwartego(s)", "correct": false }
+    ]
+  },
+  {
+    "question": "Do oceny układu regulacji automatycznej (URA) wykorzystuje się wskaźniki całkowe, takie jak:",
+    "answers": [
+      { "text": "całka z bezwzględnej wartości uchybu regulacji jako wskaźnik kosztów regulacji", "correct": false },
+      { "text": "całka z bezwzględnej wartości uchybu regulacji jako wskaźnik jakości regulacji", "correct": true },
+      { "text": "całka z bezwzględnej wartości przyrostu sygnału regulującego jako wskaźnik jakości regulacji", "correct": false },
+      { "text": "całka z bezwzględnej wartości przyrostu sygnału regulującego jako wskaźnik kosztów regulacji", "correct": true }
+    ]
+  },
+  {
+    "question": "Do określenia jakości sterowania w URA w stanie nieustalonym wykorzystuje się:",
+    "answers": [
+      { "text": "przeregulowanie", "correct": true },
+      { "text": "uchyb ustalony", "correct": false },
+      { "text": "czas regulacji", "correct": true }
+    ]
+  },
+  {
+    "question": "Do określenia jakości sterowania w URA w stanie ustalonym wykorzystuje się:",
+    "answers": [
+      { "text": "czas regulacji", "correct": false },
+      { "text": "przeregulowanie", "correct": false },
+      { "text": "uchyb ustalony", "correct": true }
+    ]
+  },
+  {
+    "type": "photo",
+    "question": "Transmitancja URA z idealnym czujnikiem pomiarowym w torze pętli sprzężenia zwrotnego ma postać (G0(s) – transmitancja układu otwartego):",
+    "answers": [
+      { "img": "ura_closed_ideal_a.png", "correct": false },
+      { "img": "ura_closed_ideal_b.png", "correct": false },
+      { "img": "ura_closed_ideal_c.png", "correct": true }
+    ]
+  },
+  {
+    "question": "Polecenie ze środowiska Scilab: G=(Gr*Gob)/Gcz; gdzie Gr jest transmitancją regulatora, Gob jest transmitancją obiektu, Gcz jest transmitancją czujnika pomiarowego, tworzy w przestrzeni zmiennych (przeglądarce zmiennych Scilab):",
+    "answers": [
+      { "text": "transmitancję układu zamkniętego", "correct": true },
+      { "text": "transmitancję widmową układu zamkniętego", "correct": false },
+      { "text": "transmitancję widmową układu otwartego", "correct": false },
+      { "text": "transmitancję układu regulacji automatycznej", "correct": true },
+      { "text": "transmitancję układu otwartego", "correct": false }
+    ]
+  },
+  {
+    "question": "Chcąc określić stabilność układu regulacji z wykorzystaniem kryterium Hurwitza, mając podaną transmitancję układu otwartego, w pierwszym kroku należy:",
+    "answers": [
+      {
+        "text": "nie trzeba znajdować współczynników równania charakterystycznego, należy sprawdzić wartości wyznacznika Hurwitza i podwyznaczników (wyznaczniki powinny być dodatnie)",
+        "correct": false
+      },
+      {
+        "text": "znaleźć współczynniki równania charakterystycznego w celu określenia ich wartości, gdzie równanie charakterystyczne: Lo(s)+Mo(s)=0 (Lo(s) – licznik transmitancji układu otwartego, Mo(s) – mianownik transmitancji układu otwartego)",
+        "correct": true
+      },
+      {
+        "text": "znaleźć współczynniki równania charakterystycznego w celu określenia ich wartości, gdzie równanie charakterystyczne: Mo(s)=0 (Mo(s) – mianownik transmitancji układu otwartego)",
+        "correct": false
+      },
+      {
+        "text": "znaleźć współczynniki równania charakterystycznego w celu określenia ich wartości, gdzie równanie charakterystyczne: Lz(s)+Mz(s)=0 (Lz(s) – licznik transmitancji układu zamkniętego, Mz(s) – mianownik transmitancji układu zamkniętego)",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "type": "questionPhoto",
+    "question": "Na rysunku (przykład ze Scilab) przedstawiono trzy transmitancje układów zamkniętych Gz1(s), Gz2(s), Gz3(s). Wskaż stabilny układ zamknięty.",
+    "img": "gz_systems.png",
+    "answers": [
+      { "text": "Gz2(s)", "correct": false },
+      { "text": "Gz1(s)", "correct": false },
+      { "text": "Gz3(s)", "correct": true }
+    ]
+  },
+  {
+    "question": "Wskaż poprawne opisy działania dwóch poleceń ze Scilab:",
+    "answers": [
+      {
+        "text": "plzr(G) – wykreśla zera transmitancji G; roots(M) – wyznacza pierwiastki wielomianu M",
+        "correct": false
+      },
+      {
+        "text": "plzr(G) – wykreśla zera i bieguny transmitancji G; roots(M) – wyznacza pierwiastki wielomianu M",
+        "correct": true
+      },
+      {
+        "text": "plzr(G) – bieguny transmitancji G; roots(M) – wyznacza pierwiastki mianownika M",
+        "correct": false
+      }
+    ]
+  }
+]

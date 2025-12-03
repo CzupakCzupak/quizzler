@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 export default function QuizPage() {
   const location = useLocation();
   const quizData = location.state?.data || [];
-  const [questions, setQuestions] = useState([{ question: "", answers: [] }]);
+  const [questions, setQuestions] = useState([{ question: '', answers: [] }]);
   // const [questions, setQuestions] = useState([...quizData]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [checkedAnswers, setCheckedAnswers] = useState([]);
   const [showCorrect, setShowCorrect] = useState(false);
   const [questionStates, setQuestionStates] = useState([]);
-  const photoDir = "../assets/images/";
+  const photoDir = '../assets/images/';
 
   function shuffle(array) {
     const arr = [...array];
@@ -22,7 +22,7 @@ export default function QuizPage() {
   }
 
   function handleCheck(index) {
-    setQuestionStates((prev) => {
+    setQuestionStates(prev => {
       const updated = [...prev];
       const qState = { ...updated[currentQuestion] };
       const newAnswers = [...qState.answers];
@@ -32,7 +32,7 @@ export default function QuizPage() {
     });
   }
   function handleCorrectAnswer() {
-    setQuestionStates((prev) => {
+    setQuestionStates(prev => {
       const updated = [...prev];
       const qState = { ...updated[currentQuestion], showCorrect: true };
       updated[currentQuestion] = qState;
@@ -60,7 +60,7 @@ export default function QuizPage() {
   }
 
   function generateShuffledQuestions(data) {
-    return shuffle(data).map((q) => ({
+    return shuffle(data).map(q => ({
       ...q,
       answers: shuffle(q.answers),
     }));
@@ -71,7 +71,7 @@ export default function QuizPage() {
     setQuestions(reshuffled);
     setCurrentQuestion(0);
     setQuestionStates(
-      reshuffled.map((q) => ({
+      reshuffled.map(q => ({
         answers: Array(q.answers.length).fill(false),
         showCorrect: false,
       }))
@@ -88,7 +88,7 @@ export default function QuizPage() {
   useEffect(() => {
     if (questions.length > 0) {
       setQuestionStates(
-        questions.map((q) => ({
+        questions.map(q => ({
           answers: Array(q.answers.length).fill(false),
           showCorrect: false,
         }))
@@ -96,12 +96,29 @@ export default function QuizPage() {
     }
   }, [questions]);
 
+  useEffect(() => {
+    function handlePress(event) {
+      event.preventDefault();
+
+      if (event.key === 'Enter') {
+        handleCorrectAnswer();
+      } else if (event.key === 'ArrowRight') {
+        handleNext();
+      } else if (event.key === 'ArrowLeft') {
+        handlePrev();
+      }
+    }
+
+    window.addEventListener('keydown', handlePress);
+    return () => window.removeEventListener('keydown', handlePress);
+  }, [currentQuestion]); // 🔹 dodaj currentQuestion jako zależność
+
   return (
     <div className="box-border flex flex-col items-center justify-end w-screen h-screen pb-32">
-      <div className="text-[#343a40] bg-[#f8f9fa] rounded-xl border-2 px-12 py-8 shadow-lg w-full w-full max-w-4xl flex flex-col items-start justify-between h-[80vh] ">
+      <div className="text-[#343a40] bg-[#f8f9fa] rounded-xl border-2 px-12 py-8 shadow-lg w-full w-full max-w-4xl flex flex-col items-start justify-between h-auto ">
         <div className="w-full">
           <h2 className="mb-4 text-4xl">
-            {questions[currentQuestion].type == "questionPhoto" ? (
+            {questions[currentQuestion].type == 'questionPhoto' ? (
               <>
                 <p>
                   {currentQuestion + 1}. {questions[currentQuestion].question}
@@ -118,7 +135,7 @@ export default function QuizPage() {
             )}
           </h2>
 
-          {questions[currentQuestion].type == "photo" ? (
+          {questions[currentQuestion].type == 'photo' ? (
             <div className="grid grid-cols-2">
               {questions[currentQuestion].answers.map((item, index) => (
                 <div
@@ -126,8 +143,8 @@ export default function QuizPage() {
                   onClick={() => handleCheck(index)}
                   className={`flex items-center p-4  ${
                     questionStates[currentQuestion]?.showCorrect && item.correct
-                      ? "bg-[#8ce99a]"
-                      : "hover:bg-[#e9ecef]"
+                      ? 'bg-[#8ce99a]'
+                      : 'hover:bg-[#e9ecef]'
                   }`}
                 >
                   <input
@@ -136,7 +153,10 @@ export default function QuizPage() {
                     readOnly
                     className="mr-3"
                   />
-                  <img src={photoDir + item.img} className="max-w-[400px]" />
+                  <img
+                    src={photoDir + item.img}
+                    className="max-w-[400px] w-full"
+                  />
                 </div>
               ))}
             </div>
@@ -148,8 +168,8 @@ export default function QuizPage() {
                   onClick={() => handleCheck(index)}
                   className={`flex items-center p-4 w-full ${
                     questionStates[currentQuestion]?.showCorrect && item.correct
-                      ? "bg-[#8ce99a]"
-                      : "hover:bg-[#e9ecef]"
+                      ? 'bg-[#8ce99a]'
+                      : 'hover:bg-[#e9ecef]'
                   }`}
                 >
                   <input
@@ -184,14 +204,16 @@ export default function QuizPage() {
 }
 function Button({
   children,
-  bgColor = "bg-[#1c7ed6]",
-  textColor = "text-white",
+  bgColor = 'bg-[#1c7ed6]',
+  textColor = 'text-white',
   onClick,
+  onKeyDown,
 }) {
   return (
     <button
       className={` ${bgColor} ${textColor} min-w-[182px] `}
       onClick={onClick}
+      onKeyDown={onKeyDown}
     >
       {children}
     </button>
