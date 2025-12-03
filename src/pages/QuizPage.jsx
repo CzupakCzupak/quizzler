@@ -121,7 +121,7 @@ export default function QuizPage() {
 
   return (
     <div className="min-h-screen w-full bg-[#e9ecef] flex items-center justify-center px-2 py-4 sm:px-4 sm:py-8">
-      <div className="text-[#343a40] bg-[#f8f9fa] rounded-xl border-2 border-[#dee2e6] shadow-lg w-full max-w-4xl flex flex-col gap-6 px-4 py-4 sm:px-8 sm:py-6 lg:px-12 lg:py-8">
+      <div className="text-[#343a40] bg-[#f8f9fa] rounded-xl border-2 border-[#dee2e6] shadow-lg w-full max-w-4xl flex flex-col justify-between gap-6 min-h-[70vh] px-4 py-4 sm:px-8 sm:py-6 lg:px-12 lg:py-8">
         {/* Pytanie + ewentualne zdjęcie */}
         <div className="w-full">
           <h2 className="mb-4 text-2xl font-semibold sm:text-3xl lg:text-4xl">
