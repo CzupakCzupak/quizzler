@@ -5,7 +5,6 @@ export default function QuizPage() {
   const location = useLocation();
   const quizData = location.state?.data || [];
   const [questions, setQuestions] = useState([{ question: '', answers: [] }]);
-  // const [questions, setQuestions] = useState([...quizData]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [checkedAnswers, setCheckedAnswers] = useState([]);
   const [showCorrect, setShowCorrect] = useState(false);
@@ -31,6 +30,7 @@ export default function QuizPage() {
       return updated;
     });
   }
+
   function handleCorrectAnswer() {
     setQuestionStates(prev => {
       const updated = [...prev];
@@ -111,80 +111,95 @@ export default function QuizPage() {
 
     window.addEventListener('keydown', handlePress);
     return () => window.removeEventListener('keydown', handlePress);
-  }, [currentQuestion]); // 🔹 dodaj currentQuestion jako zależność
+  }, [currentQuestion]);
+
+  const current = questions[currentQuestion] || { question: '', answers: [] };
+  const currentState = questionStates[currentQuestion] || {
+    answers: [],
+    showCorrect: false,
+  };
 
   return (
-    <div className="box-border flex flex-col items-center justify-end w-screen h-screen pb-32">
-      <div className="text-[#343a40] bg-[#f8f9fa] rounded-xl border-2 px-12 py-8 shadow-lg w-full w-full max-w-4xl flex flex-col items-start justify-between h-auto ">
+    <div className="min-h-screen w-full bg-[#e9ecef] flex items-center justify-center px-2 py-4 sm:px-4 sm:py-8">
+      <div className="text-[#343a40] bg-[#f8f9fa] rounded-xl border-2 border-[#dee2e6] shadow-lg w-full max-w-4xl flex flex-col gap-6 px-4 py-4 sm:px-8 sm:py-6 lg:px-12 lg:py-8">
+        {/* Pytanie + ewentualne zdjęcie */}
         <div className="w-full">
-          <h2 className="mb-4 text-4xl">
-            {questions[currentQuestion].type == 'questionPhoto' ? (
+          <h2 className="mb-4 text-2xl font-semibold sm:text-3xl lg:text-4xl">
+            {current.type === 'questionPhoto' ? (
               <>
-                <p>
-                  {currentQuestion + 1}. {questions[currentQuestion].question}
+                <p className="text-left">
+                  {currentQuestion + 1}. {current.question}
                 </p>
                 <img
-                  src={photoDir + questions[currentQuestion].img}
-                  className="max-w-[400px]"
+                  src={photoDir + current.img}
+                  className="w-full max-w-xs mx-auto mt-4 rounded-lg sm:max-w-sm md:max-w-md"
                 />
               </>
             ) : (
-              <p>
-                {currentQuestion + 1}. {questions[currentQuestion].question}
+              <p className="text-left">
+                {currentQuestion + 1}. {current.question}
               </p>
             )}
           </h2>
 
-          {questions[currentQuestion].type == 'photo' ? (
-            <div className="grid grid-cols-2">
-              {questions[currentQuestion].answers.map((item, index) => (
+          {/* Odpowiedzi */}
+          {current.type === 'photo' ? (
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {current.answers.map((item, index) => (
                 <div
                   key={index}
                   onClick={() => handleCheck(index)}
-                  className={`flex items-center p-4  ${
-                    questionStates[currentQuestion]?.showCorrect && item.correct
+                  className={`flex flex-col items-center p-3 rounded-lg cursor-pointer border border-transparent transition-colors ${
+                    currentState.showCorrect && item.correct
                       ? 'bg-[#8ce99a]'
                       : 'hover:bg-[#e9ecef]'
                   }`}
                 >
-                  <input
-                    type="checkbox"
-                    checked={!!questionStates[currentQuestion]?.answers[index]}
-                    readOnly
-                    className="mr-3"
-                  />
+                  <div className="flex items-center w-full mb-2">
+                    <input
+                      type="checkbox"
+                      checked={!!currentState.answers[index]}
+                      readOnly
+                      className="w-4 h-4 mr-3"
+                    />
+                    <span className="text-sm text-left">
+                      Odpowiedź {index + 1}
+                    </span>
+                  </div>
                   <img
                     src={photoDir + item.img}
-                    className="max-w-[400px] w-full"
+                    className="object-contain w-full rounded-md max-h-64"
                   />
                 </div>
               ))}
             </div>
           ) : (
-            <div className="flex flex-col flex-wrap w-full gap-1 mb-8 shrink-0">
-              {questions[currentQuestion].answers.map((item, index) => (
+            <div className="flex flex-col w-full gap-2 mb-4">
+              {current.answers.map((item, index) => (
                 <div
                   key={index}
                   onClick={() => handleCheck(index)}
-                  className={`flex items-center p-4 w-full ${
-                    questionStates[currentQuestion]?.showCorrect && item.correct
+                  className={`flex items-center p-3 w-full rounded-lg cursor-pointer transition-colors ${
+                    currentState.showCorrect && item.correct
                       ? 'bg-[#8ce99a]'
                       : 'hover:bg-[#e9ecef]'
                   }`}
                 >
                   <input
                     type="checkbox"
-                    checked={!!questionStates[currentQuestion]?.answers[index]}
+                    checked={!!currentState.answers[index]}
                     readOnly
-                    className="mr-3"
+                    className="w-4 h-4 mr-3"
                   />
-                  <p>{item.text}</p>
+                  <p className="text-sm text-left sm:text-base">{item.text}</p>
                 </div>
               ))}
             </div>
           )}
         </div>
-        <div className="flex flex-wrap items-center justify-between w-full gap-4 shrink-0">
+
+        {/* Przyciski nawigacji */}
+        <div className="flex flex-col w-full gap-3 sm:flex-row sm:flex-wrap sm:justify-between">
           <Button onClick={handlePrev}>Poprzednie pytanie</Button>
           <Button
             bgColor="bg-[#ced4da]"
@@ -202,6 +217,7 @@ export default function QuizPage() {
     </div>
   );
 }
+
 function Button({
   children,
   bgColor = 'bg-[#1c7ed6]',
@@ -211,7 +227,7 @@ function Button({
 }) {
   return (
     <button
-      className={` ${bgColor} ${textColor} min-w-[182px] `}
+      className={`${bgColor} ${textColor} w-full sm:flex-1 sm:min-w-[160px] text-sm sm:text-base px-4 py-2 rounded-md font-medium transition-colors`}
       onClick={onClick}
       onKeyDown={onKeyDown}
     >
