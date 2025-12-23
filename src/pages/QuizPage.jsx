@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function QuizPage() {
+  const navigate = useNavigate();
   const location = useLocation();
-  const quizData = location.state?.data || [];
+  const quizData = location.state?.data || navigate('/');
+
   const [questions, setQuestions] = useState([{ question: '', answers: [] }]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [checkedAnswers, setCheckedAnswers] = useState([]);
